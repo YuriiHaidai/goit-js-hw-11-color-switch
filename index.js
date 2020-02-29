@@ -1,30 +1,34 @@
 const colors = [
-  "#FFFFFF",
-  "#2196F3",
-  "#4CAF50",
-  "#FF9800",
-  "#009688",
-  "#795548"
+  '#FFFFFF',
+  '#2196F3',
+  '#4CAF50',
+  '#FF9800',
+  '#009688',
+  '#795548',
 ];
 
-const body = document.querySelector("body");
-const startBtn = document.querySelector('button[data-action="start"]');
-const stopBtn = document.querySelector('button[data-action="stop"]');
+const refs = {
+  body: document.querySelector('body'),
+  startBtn: document.querySelector('button[data-action="start"]'),
+  stopBtn: document.querySelector('button[data-action="stop"]'),
+};
 
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-let timerId = null;
+refs.startBtn.addEventListener('click', colorSwitchStart);
+refs.stopBtn.addEventListener('click', colorSwitchStop);
 
-startBtn.addEventListener("click", () => {
+function colorSwitchStart() {
   timerId = setInterval(() => {
-    body.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length - 1)];
+    refs.body.style.backgroundColor =
+      colors[randomIntegerFromInterval(0, colors.length - 1)];
   }, 1000);
-  startBtn.setAttribute("disabled", "");
-});
+  refs.startBtn.setAttribute('disabled', '');
+}
 
-stopBtn.addEventListener("click", () => {
+function colorSwitchStop() {
   clearInterval(timerId);
-  startBtn.removeAttribute("disabled", "");
-});
+  refs.startBtn.removeAttribute('disabled', '');
+}
